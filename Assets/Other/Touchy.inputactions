@@ -1,0 +1,98 @@
+{
+    "name": "Touchy",
+    "maps": [
+        {
+            "name": "Touch Screen",
+            "id": "f18ec6cd-4f08-4651-a713-01cc6a70e726",
+            "actions": [
+                {
+                    "name": "MoveVert",
+                    "type": "Value",
+                    "id": "904661b5-e16c-43a8-9750-2ff910df0976",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MoveHorz",
+                    "type": "Value",
+                    "id": "187d5678-3a86-4fc2-a412-95d148e0b2f8",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "929c8ab1-7c54-4b49-97c6-a9fcff9a7164",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveVert",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "9c668b9b-19f6-4bab-a702-186adc515edf",
+                    "path": "<Touchscreen>/delta/up",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=0.4)",
+                    "groups": "",
+                    "action": "MoveVert",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "fc0dca15-5ace-4d4b-8271-078dfbf6809d",
+                    "path": "<Touchscreen>/delta/down",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=0.4)",
+                    "groups": "",
+                    "action": "MoveVert",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "5dd37f16-c858-4609-b9b8-6042d9c792f0",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveHorz",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "47e2d62c-c577-4a68-bc3f-e293d7757b93",
+                    "path": "<Touchscreen>/delta/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveHorz",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "919b393e-e0bd-4bc5-adc8-3e6a962bce6c",
+                    "path": "<Touchscreen>/delta/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveHorz",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

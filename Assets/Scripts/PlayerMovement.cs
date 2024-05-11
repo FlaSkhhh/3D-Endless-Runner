@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,11 +12,14 @@ public class PlayerMovement : MonoBehaviour
     public Collider topHitBox;
     public float lane;
     private float pos;
+
     private bool laneTransition = false;
     private bool jumping = false;
     private bool falling = false;
     private bool rolling = false;
     private bool grounded = true;
+
+    Vector2 touchInput;
     private Vector3 mov;
     private float nextRoll;
     private float counter=0f;
@@ -34,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             falling = false;
         }
         //front roll at top to avoid premature transition from jump to roll
-        if (Input.GetKeyDown(KeyCode.S) && Time.time > nextRoll && !laneTransition && !jumping)
+        if (Input.GetKeyDown(KeyCode.S) || touchInput.y<-0.5f && Time.time > nextRoll && !laneTransition && !jumping)
         {
             nextRoll = Time.time + 0.75f;
             animator.SetTrigger("Roll");
@@ -54,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         //getting input while not changing lanes
         if (!laneTransition && !falling)
         {
-            if (Input.GetKeyDown(KeyCode.A) && lane != -1 && Time.time > nextRoll && !rolling)
+            if (Input.GetKeyDown(KeyCode.A) || touchInput.x<-10f && lane != -1 && Time.time > nextRoll && !rolling)
             {
                 lane = lane - 1;
                 pos = transform.position.x - 3f;
@@ -67,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
                 LaneChangeLeft();
                 return;
             }
-            if (Input.GetKeyDown(KeyCode.D) && lane != 1 && Time.time > nextRoll && !rolling)
+            if (Input.GetKeyDown(KeyCode.D) || touchInput.x>10f && lane != 1 && Time.time > nextRoll && !rolling)
             {
                 lane = lane + 1;
                 pos = transform.position.x + 3f;
@@ -80,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
                 LaneChangeRight();
                 return;
             }
-            if (Input.GetButtonDown("Jump") && grounded && !rolling && !jumping)
+            if (Input.GetButtonDown("Jump") || touchInput.y > 0.5f && grounded && !rolling && !jumping)
             {
                 animator.SetTrigger("Jump");
                 nextRoll = Time.time + 0.05f;
@@ -101,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         //    mov = new Vector3(0f, 0f, 0f);
         //    transform.position = Vector3.MoveTowards(transform.position, new Vector3(pos, 0.06f, 0f), 0.5f);
         //}
+
         if (laneTransition && counter<=24f)
         {
             controller.Move(mov * 2f * Time.deltaTime);
@@ -118,6 +123,19 @@ public class PlayerMovement : MonoBehaviour
         {
            controller.Move(new Vector3(0f, -5f, 0f) * Time.deltaTime);
         }
+    }
+
+    //Input actions for mobile
+    void OnMoveVert(InputValue val)
+    {
+        touchInput.y = val.Get<Vector2>().y;
+        Debug.Log(touchInput.y);
+    }
+    
+    void OnMoveHorz(InputValue val)
+    {
+        touchInput.x = val.Get<Vector2>().x;
+        //Debug.Log(touchInput.x);
     }
 
     void LaneChangeLeft()
