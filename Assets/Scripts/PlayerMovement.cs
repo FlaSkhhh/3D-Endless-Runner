@@ -10,8 +10,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundMask;
     public Collider topHitBox;
+
     public float lane;
     private float pos;
+    private float minTouchDeadzone=50f;
 
     private bool laneTransition = false;
     private bool jumping = false;
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 touchInput;
     private Vector3 mov;
+
     private float nextRoll;
     private float counter=0f;
 
@@ -36,15 +39,18 @@ public class PlayerMovement : MonoBehaviour
         if (falling && grounded)
         {
             falling = false;
+            animator.ResetTrigger("Jump");
         }
         //front roll at top to avoid premature transition from jump to roll
-        if (Input.GetKeyDown(KeyCode.S) || touchInput.y<-0.5f && Time.time > nextRoll && !laneTransition && !jumping)
+        if ((Input.GetKeyDown(KeyCode.S) || touchInput.y< -minTouchDeadzone) && Time.time > nextRoll && !laneTransition)
         {
+            if (jumping) { return; }
             nextRoll = Time.time + 0.75f;
             animator.SetTrigger("Roll");
             rolling = true;
             return;
         }
+
         //lane transition to give side momentum and avoid input during lane change
         if (laneTransition)
         {
@@ -56,9 +62,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         //getting input while not changing lanes
-        if (!laneTransition && !falling)
+        if (!laneTransition && !falling && !rolling)
         {
-            if (Input.GetKeyDown(KeyCode.A) || touchInput.x<-10f && lane != -1 && Time.time > nextRoll && !rolling)
+            if ((Input.GetKeyDown(KeyCode.A) || touchInput.x<-minTouchDeadzone) && lane != -1 && Time.time > nextRoll)
             {
                 lane = lane - 1;
                 pos = transform.position.x - 3f;
@@ -71,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
                 LaneChangeLeft();
                 return;
             }
-            if (Input.GetKeyDown(KeyCode.D) || touchInput.x>10f && lane != 1 && Time.time > nextRoll && !rolling)
+            else if ((Input.GetKeyDown(KeyCode.D) || touchInput.x> minTouchDeadzone) && lane != 1 && Time.time > nextRoll)
             {
                 lane = lane + 1;
                 pos = transform.position.x + 3f;
@@ -84,11 +90,11 @@ public class PlayerMovement : MonoBehaviour
                 LaneChangeRight();
                 return;
             }
-            if (Input.GetButtonDown("Jump") || touchInput.y > 0.5f && grounded && !rolling && !jumping)
+            if (Input.GetButtonDown("Jump") || touchInput.y > minTouchDeadzone && grounded && !jumping)
             {
+                jumping = true;
                 animator.SetTrigger("Jump");
                 nextRoll = Time.time + 0.05f;
-                return;
             }
         }
     }
@@ -117,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (jumping)
         {
-           controller.Move(new Vector3(0f,4f,0f)* Time.deltaTime);
+           controller.Move(new Vector3(0f,4f,0f) * Time.deltaTime);
         }
         else 
         {
@@ -126,16 +132,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //Input actions for mobile
-    void OnMoveVert(InputValue val)
+    void OnMove(InputValue val)
     {
-        touchInput.y = val.Get<Vector2>().y;
-        Debug.Log(touchInput.y);
-    }
-    
-    void OnMoveHorz(InputValue val)
-    {
-        touchInput.x = val.Get<Vector2>().x;
-        //Debug.Log(touchInput.x);
+        touchInput = val.Get<Vector2>();
     }
 
     void LaneChangeLeft()
@@ -153,7 +152,6 @@ public class PlayerMovement : MonoBehaviour
     void JumpStart()
     {
         ObstacleSpeed.instance.roll=false;
-        jumping = true;
         grounded = false;
     }
 

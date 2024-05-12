@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class BuildingSpawner : MonoBehaviour
 {
+    public Transform parentGO;
     public GameObject[] buildings;
+
     public LayerMask buildMask;
+    
     private bool spawnleft = true;
     private bool spawnright = true;
+    
     private float xcoordL;
     private float xcoordR;
     private float zcoord;
 
-    void Update()
+    void FixedUpdate()
     {
         spawnleft = !Physics.CheckBox(new Vector3(-6f, 0f, 90f), new Vector3(10f, 10f, 3f), Quaternion.identity, buildMask);
         while (spawnleft)
@@ -32,7 +36,7 @@ public class BuildingSpawner : MonoBehaviour
         GameObject GO;
         xcoordL = 5f + buildings[num].transform.GetChild(0).position.x;
         zcoord = buildings[num].transform.GetChild(0).position.z;
-        GO = Instantiate(buildings[num], new Vector3(-xcoordL,0f,90f-zcoord), buildings[num].transform.rotation);
+        GO = Instantiate(buildings[num], new Vector3(-xcoordL,0f,90f-zcoord), buildings[num].transform.rotation,parentGO);
         spawnleft = false;
     }
 
@@ -42,7 +46,7 @@ public class BuildingSpawner : MonoBehaviour
         GameObject GO;
         xcoordR = 5f + buildings[num].transform.GetChild(0).position.x;
         zcoord = buildings[num].transform.GetChild(0).position.z;
-        GO = Instantiate(buildings[num], new Vector3(xcoordR, 0f, 90f - zcoord), Quaternion.Euler(0, -90, 0));
+        GO = Instantiate(buildings[num], new Vector3(xcoordR, 0f, 90f - zcoord), Quaternion.Euler(0, -90, 0),parentGO);
         spawnright = false;
     }
 }

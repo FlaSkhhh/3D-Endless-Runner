@@ -10,21 +10,30 @@ public class MainMenu : MonoBehaviour
    public Animator girl;
    public Animator boy;
    public static int choice=0;
-   public GameObject txt;
+   public static bool onPhone = false;
+
+   public GameObject charNotSelectedText;
+   public GameObject mobileWarning;
    //public Animator animator;
    private float count = 0f;
 
    void Start()
    {
         Cursor.lockState = CursorLockMode.None;
-        txt.SetActive(false);
-   }
+        charNotSelectedText.SetActive(false);
+        if (Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform)
+        {
+            onPhone = true;
+            mobileWarning.SetActive(true);
+        }
+        else { mobileWarning.SetActive(false); }
+    }
    
    public void Play()
    {
        if (choice == 0)
        {
-            txt.SetActive(true);
+            charNotSelectedText.SetActive(true);
             return;
        }
        SceneChange();

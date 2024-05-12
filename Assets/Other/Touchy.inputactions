@@ -6,19 +6,10 @@
             "id": "f18ec6cd-4f08-4651-a713-01cc6a70e726",
             "actions": [
                 {
-                    "name": "MoveVert",
+                    "name": "Move",
                     "type": "Value",
                     "id": "904661b5-e16c-43a8-9750-2ff910df0976",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MoveHorz",
-                    "type": "Value",
-                    "id": "187d5678-3a86-4fc2-a412-95d148e0b2f8",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Touch",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -26,68 +17,57 @@
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
-                    "id": "929c8ab1-7c54-4b49-97c6-a9fcff9a7164",
+                    "name": "Swipes",
+                    "id": "98042281-2433-471b-8aa1-cef39c9e95c5",
                     "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveVert",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "up",
-                    "id": "9c668b9b-19f6-4bab-a702-186adc515edf",
+                    "id": "e6330667-2d65-489f-b8d4-ebcddf2eaf3e",
                     "path": "<Touchscreen>/delta/up",
                     "interactions": "",
-                    "processors": "AxisDeadzone(min=0.4)",
+                    "processors": "",
                     "groups": "",
-                    "action": "MoveVert",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "fc0dca15-5ace-4d4b-8271-078dfbf6809d",
+                    "id": "94c39038-34e1-4650-bbf6-8ac524b5e4bf",
                     "path": "<Touchscreen>/delta/down",
                     "interactions": "",
-                    "processors": "AxisDeadzone(min=0.4)",
+                    "processors": "",
                     "groups": "",
-                    "action": "MoveVert",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "2D Vector",
-                    "id": "5dd37f16-c858-4609-b9b8-6042d9c792f0",
-                    "path": "2DVector(mode=2)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveHorz",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "left",
-                    "id": "47e2d62c-c577-4a68-bc3f-e293d7757b93",
+                    "id": "597db599-de7d-4b17-8d4a-9dc7f0b471ed",
                     "path": "<Touchscreen>/delta/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveHorz",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "919b393e-e0bd-4bc5-adc8-3e6a962bce6c",
+                    "id": "c9996500-bfe0-4e0b-95c6-fa40676da6e0",
                     "path": "<Touchscreen>/delta/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveHorz",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

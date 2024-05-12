@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoadMovement : MonoBehaviour
 {
     public GameObject roadLine;
+    public Transform parentGO;
 
     void Start()
     {
@@ -16,7 +17,7 @@ public class RoadMovement : MonoBehaviour
         while (true)
         {
             GameObject GO;
-            GO = Instantiate(roadLine, new Vector3(0f, 0f, 60f), Quaternion.identity);
+            GO = Instantiate(roadLine, new Vector3(0f, 0f, 60f), Quaternion.identity,parentGO);
             yield return new WaitForSeconds(4);
         }
     }

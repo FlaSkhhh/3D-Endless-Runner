@@ -9,11 +9,14 @@ public class GameManager : MonoBehaviour
     public GameObject girl1;
     public GameObject girl2;
     public GameObject man;
+
     public Animator animator;
     public Avatar girl1Avatar;
     public Avatar girl2Avatar;
     public Avatar manAvatar;
+    
     public AudioManager audioM;
+    
     private int chosen;
 
     void Awake()

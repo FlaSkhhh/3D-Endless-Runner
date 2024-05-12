@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RoadsideSpawner : MonoBehaviour
 {
+    public Transform parentGO;
     public GameObject[] roadSide;
     public LayerMask Mask;
+
     private bool spawnleft = true;
     private bool spawnright = true;
 
@@ -27,7 +29,7 @@ public class RoadsideSpawner : MonoBehaviour
     {
         int num = Random.Range(0, roadSide.Length);
         GameObject GO;
-        GO = Instantiate(roadSide[num], new Vector3(-5f,0.1f, 70f), Quaternion.Euler(0f, 180, 0f) );
+        GO = Instantiate(roadSide[num], new Vector3(-5f,0.1f, 70f), Quaternion.Euler(0f, 180, 0f),parentGO);
         spawnleft = false;
     }
 
@@ -35,7 +37,7 @@ public class RoadsideSpawner : MonoBehaviour
     {
         int num = Random.Range(0, roadSide.Length);
         GameObject GO;
-        GO = Instantiate(roadSide[num], new Vector3(5f, 0.1f, 70f), Quaternion.Euler(0f,0, 0f));
+        GO = Instantiate(roadSide[num], new Vector3(5f, 0.1f, 70f), Quaternion.Euler(0f,0, 0f),parentGO);
         spawnright = false;
     }
 }

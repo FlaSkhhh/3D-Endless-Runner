@@ -9,9 +9,19 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused = false;
     public GameObject player;
     public GameObject UI;
+    public GameObject pauseButton;
+
     public Slider Mslider;
     public Slider Sslider;
+    
     public AudioManager audioM;
+
+    private bool pauseButtonTouch = false;
+
+    void Awake()
+    {
+        pauseButtonTouch = MainMenu.onPhone;
+    }
 
     void Start()
     {
@@ -20,6 +30,10 @@ public class PauseMenu : MonoBehaviour
         audioM.SFXVolume(1f);
         Mslider.value = 0.5f;
         Sslider.value = 1f;
+        if (pauseButtonTouch)
+        {
+            pauseButton.SetActive(true);
+        }
     }
 
     void Update()

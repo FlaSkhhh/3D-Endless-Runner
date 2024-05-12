@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    public Transform parentGO;
     public GameObject[] obstacles; 
     public LayerMask obsMask;
+
     private Vector3 coord;
+    
     private float delay = 0.1f;
     private float gapInc = 10f;
+    
     private bool spawn = true;
  
     void Start()
@@ -33,7 +37,7 @@ public class ObstacleSpawner : MonoBehaviour
             coord = new Vector3(0f,0f, 70f);
             int num = Random.Range(0, obstacles.Length);
             GameObject GO;
-            GO = Instantiate(obstacles[num], coord, obstacles[num].transform.rotation);
+            GO = Instantiate(obstacles[num], coord, obstacles[num].transform.rotation,parentGO);
             yield return new WaitForSeconds(delay);
         }
     }
